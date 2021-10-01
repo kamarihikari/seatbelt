@@ -8,27 +8,15 @@ function execFunctionWrapper(fn) {
     return resolve(ret);
   });
 }
-function execErrorHandler(err, errHandler){
-  return errHandler
-        ? errHandler(err)
-        : [err, null];
-}
 
-function execResolveHandler(data, errHandler){
-  return errHandler
-        ? data
-        : [null, data];
-}
-
-function seatbelt(fn, errHandler) {
+function seatbelt(fn) {
   return new Promise((resolve, reject) => {
     if (!fn || typeof fn !== 'function') return reject(new Error('First argument must be a function'));
-    if (arguments.length > 1 && typeof errHandler !== 'function') return reject(new Error('Error handler must be a function'));
   
     return resolve(execFunctionWrapper(fn));
   })
-  .then(data => execResolveHandler(data, errHandler))
-  .catch(exception => execErrorHandler(exception, errHandler));
+  .then(data => [null, data])
+  .catch(exception => [exception, null]);
 }
 
 module.exports = seatbelt;

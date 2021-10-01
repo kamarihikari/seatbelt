@@ -12,13 +12,6 @@ describe('Seatbelt', () => {
       const [err] = await seatbelt(false);
       expect(err).toEqual(firstArgError);
     });
-    it('should reject if the error handler type is not a function', async () => {
-      const fn = jest.fn();
-      const secondArgError = new Error('Error handler must be a function');
-
-      const [err] = await seatbelt(fn, false);
-      expect(err).toEqual(secondArgError);
-    });
     it('should return an array with error element set if function has an exception', async () => {
       const fnError = new Error('Thrown Error');
       const badFn = jest.fn().mockRejectedValue(fnError);
@@ -32,14 +25,6 @@ describe('Seatbelt', () => {
 
       const [err] = await seatbelt(regfn);
       expect(err).toBe(thrownError);
-    });
-    it('should invoke error handler function is supplied', async () => {
-      const fnError = new Error('Thrown Error');
-      const fn = jest.fn().mockRejectedValue(fnError);
-      const errHandler = jest.fn();
-
-      await seatbelt(fn, errHandler);
-      expect(errHandler).toHaveBeenCalledWith(fnError);
     });
   });
   describe('Execution', () => {
@@ -58,14 +43,6 @@ describe('Seatbelt', () => {
       const [err, data] = await seatbelt(fn);
       expect(err).toBeFalsy();
       expect(data).toBe(value);
-    });
-    it('should return the resolved value without an array if error handler function is supplied', async () => {
-      const value = true;
-      const fn = jest.fn().mockResolvedValue(value);
-      const errHandler = jest.fn();
-
-      const returnData = await seatbelt(fn, errHandler);
-      expect(returnData).toBe(value);
     });
   });
 });
