@@ -43,4 +43,4 @@ async function expressControllerFn(req, res, next) {
 
 ```
 
- 	![Test Coverage](/doc/test.png)
+ 	![Test Coverage](/images/test.png)
