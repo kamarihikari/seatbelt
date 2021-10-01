@@ -1,0 +1,23 @@
+{
+  "name": "@jamarv4/seatbelt",
+  "version": "1.0.0",
+  "description": "Async wrapper for functions",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "coverageReporters": ["text"]
+  },
+  "keywords": [
+    "async",
+    "wrapper",
+    "promise"
+  ],
+  "author": "Jamar Vales",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^27.2.4"
+  }
+}
