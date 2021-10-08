@@ -8,17 +8,6 @@ function execFunctionWrapper(fn) {
     return resolve(ret);
   });
 }
-function execErrorHandler(err, errHandler){
-  return errHandler
-        ? errHandler(err)
-        : [err, null];
-}
-
-function execResolveHandler(data, errHandler){
-  return errHandler
-        ? data
-        : [null, data];
-}
 
 function seatbelt(fn, errHandler) {
   return new Promise((resolve, reject) => {
@@ -27,8 +16,8 @@ function seatbelt(fn, errHandler) {
   
     return resolve(execFunctionWrapper(fn));
   })
-  .then(data => execResolveHandler(data, errHandler))
-  .catch(exception => execErrorHandler(exception, errHandler));
+  .then(data => [null, data])
+  .catch(exception => [exception, null]);
 }
 
 module.exports = seatbelt;

@@ -33,14 +33,6 @@ describe('Seatbelt', () => {
       const [err] = await seatbelt(regfn);
       expect(err).toBe(thrownError);
     });
-    it('should invoke error handler function is supplied', async () => {
-      const fnError = new Error('Thrown Error');
-      const fn = jest.fn().mockRejectedValue(fnError);
-      const errHandler = jest.fn();
-
-      await seatbelt(fn, errHandler);
-      expect(errHandler).toHaveBeenCalledWith(fnError);
-    });
   });
   describe('Execution', () => {
     it('should return array with data element set if a promise function resolves', async () => {
@@ -58,14 +50,6 @@ describe('Seatbelt', () => {
       const [err, data] = await seatbelt(fn);
       expect(err).toBeFalsy();
       expect(data).toBe(value);
-    });
-    it('should return the resolved value without an array if error handler function is supplied', async () => {
-      const value = true;
-      const fn = jest.fn().mockResolvedValue(value);
-      const errHandler = jest.fn();
-
-      const returnData = await seatbelt(fn, errHandler);
-      expect(returnData).toBe(value);
     });
   });
 });

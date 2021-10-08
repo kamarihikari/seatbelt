@@ -10,8 +10,7 @@ The seatbelt wrapper returns an array that contains an error as the first elemen
 ```javascript
 // Usage:
 // fn can be a promise or non-promise
-await seatbelt(fn); // [err, data]
-await seatbelt(fn, errorHandler); // data ( if successful )
+const [err, data] = await seatbelt(fn);
 ```
 
 ```javascript
@@ -33,18 +32,5 @@ if (err) {
   // handle error manually
 }
 
-
-
-// You can also pass in an error handler. 
-// By doing this, the seatbelt will not return an array. 
-// Instead the resolved value is returned and
-// if an exception occurs then the error handler will be called.
-
-// Example: If using express, you can pass the 'next' function for a clean exection flow
-async function expressControllerFn(req, res, next) {
-  const user = await seatbelt(fetchUser, next);
-
-  // do something with user if successful....
-}
 
 ```
